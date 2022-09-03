@@ -18,17 +18,16 @@ var URL string = "https://www.pornhub.com/users/lolloldeneme"
 var LASTVIDEOCOUNT = -99
 var LASTACCESSLOGIN = "124 years ago"
 
-func sendRequest(url string) *goquery.Document {
+func sendRequest(url string) {
 	resp, err := http.Get(url)
 	if err != nil {
 		fmt.Println(err.Error())
-		return nil
 	}
 	defer resp.Body.Close()
 	httpBody := resp.Body
 	node, _ := html.Parse(httpBody)
 	document := goquery.NewDocumentFromNode(node)
-	return document
+	checkNotify(parseVideo(document), parseLogin(document))
 }
 
 func parseVideo(document *goquery.Document) int {
@@ -90,13 +89,11 @@ func sendNotification(isVideoCount bool) {
 }
 
 func main() {
-	doc := sendRequest(URL)
-
 	uptimeTicker := time.NewTicker(10 * time.Second)
 	for {
 		select {
 		case <-uptimeTicker.C:
-			checkNotify(parseVideo(doc), parseLogin(doc))
+			sendRequest(URL)
 		}
 	}
 }
