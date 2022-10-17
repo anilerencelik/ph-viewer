@@ -13,7 +13,7 @@ import (
 	"golang.org/x/net/html"
 )
 
-var WEBHOOK_URL string = "https://webhook.site/ff70e548-7a3d-403b-83e5-d0acea619ede"
+var WEBHOOK_URL string = "https://webhook.site/70765bf6-1af1-4022-8900-11479d31f22e"
 var URL string = "https://www.pornhub.com/users/lolloldeneme"
 var LASTVIDEOCOUNT = -99
 var LASTACCESSLOGIN = "124 years ago"
@@ -54,12 +54,12 @@ func checkNotify(videoNumber int, login string) {
 		sendNotify = true
 		forVideoCount = true
 	}
-	if strings.Contains(login, "seconds ago") {
-		sendNotify = true
-	}
-	if strings.Contains(login, "1 minutes ago") {
-		sendNotify = true
-	}
+	// if strings.Contains(login, "seconds ago") {
+	// 	sendNotify = true
+	// }
+	// if strings.Contains(login, "1 minutes ago") {
+	// 	sendNotify = true
+	// }
 	if sendNotify {
 		sendNotification(forVideoCount)
 	}
